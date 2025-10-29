@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalkulator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        input, select, button { margin: 5px; }
+    </style>
+</head>
+<body>
+<h1>Jednostavan Kalkulator</h1>
+<input type="number" id="a" placeholder="Broj A">
+
+<select id="op">
+    <option value="add">Saberi</option>
+    <option value="sub">Oduzmi</option>
+    <option value="mul">Pomnoži</option>
+    <option value="div">Podeli</option>
+</select>
+
+<input type="number" id="b" placeholder="Broj B">
+<button id="calculate">Izračunaj</button>
+
+<p>Rezultat: <span id="result">0</span></p>
+
+<script>
+    document.getElementById('calculate').addEventListener('click', ()=> {
+        const a = parseInt(document.getElementById('a').value);
+        const b = parseInt(document.getElementById('b').value);
+        const op = document.getElementById('op').value;
+
+        fetch(`/api/calculate?op=${op}&a=${a}&b=${b}`)
+            .then(res => res.text())
+            .then(data => document.getElementById("result").innerText = data);
+    });
+</script>
+</body>
+</html>
